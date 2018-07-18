@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Mockingbird</string>
+    <string name="placeholder_quote">\'Morning comes whether you set the alarm or not.\' - Ursula K. Le Guin</string>
 </resources>

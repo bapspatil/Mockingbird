@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import java.util.Objects;
 
 import bapspatil.mockingbird.R;
 import bapspatil.mockingbird.model.User;
+import bapspatil.mockingbird.util.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
@@ -42,7 +44,6 @@ public class SplashActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         realm = Realm.getDefaultInstance();
         hideSystemUI();
-        splashTextView.setTypeface(ResourcesCompat.getFont(this, R.font.gaegu_bold));
         int SPLASH_TIME_OUT = 1000;
 
         RealmResults<User> usersReamResults = realm.where(User.class).findAll();
@@ -51,13 +52,14 @@ public class SplashActivity extends AppCompatActivity {
                 animateUserNameInput();
                 nextFab.setOnClickListener(v -> validateUserName());
             }).start();
-            splashTextView.animate().alpha(0).setDuration(1000).start();
+            splashTextView.animate().alpha(0).setStartDelay(500).setDuration(1000).start();
         } else {
             new Handler().postDelayed(() -> {
                 Intent i = new Intent(SplashActivity.this, AlarmsActivity.class);
                 String userName = Objects.requireNonNull(usersReamResults.first()).getName();
-                i.putExtra("USER", userName);
-                startActivity(i);
+                i.putExtra(Constants.USER_KEY, userName);
+                Bundle animationBundle = ActivityOptionsCompat.makeCustomAnimation(SplashActivity.this, android.R.anim.fade_in, android.R.anim.fade_out).toBundle();
+                startActivity(i, animationBundle);
                 finish();
             }, SPLASH_TIME_OUT);
         }
@@ -65,7 +67,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void validateUserName() {
         String firstName = userNameEt.getText().toString().trim();
-        if(firstName.isEmpty() && !firstName.equals("")) {
+        if(firstName.isEmpty() && firstName.equals("")) {
             userNameTil.setError("Umm...that's not a valid name.");
         } else if(firstName.length() > 15) {
             userNameTil.setError("That's too long. Can you just share your first name?");
@@ -75,8 +77,9 @@ public class SplashActivity extends AppCompatActivity {
             realm.executeTransaction(realm1 -> realm1.copyToRealmOrUpdate(user));
             Log.d("REALM_USER_ADDED", "User added: " + user.getName());
             Intent i = new Intent(SplashActivity.this, AlarmsActivity.class);
-            i.putExtra("USER", user.getName());
-            startActivity(i);
+            i.putExtra(Constants.USER_KEY, user.getName());
+            Bundle animationBundle = ActivityOptionsCompat.makeCustomAnimation(SplashActivity.this, android.R.anim.fade_in, android.R.anim.fade_out).toBundle();
+            startActivity(i, animationBundle);
             finish();
         }
     }

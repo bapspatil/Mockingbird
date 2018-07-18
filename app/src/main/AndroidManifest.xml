@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.AlarmsActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Alarms">
 
         </activity>
         <activity
