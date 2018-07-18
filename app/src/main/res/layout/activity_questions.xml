@@ -1,9 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".ui.QuestionsActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:fitsSystemWindows="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/questions_bg"
+        android:tint="@color/colorPrimary"
+        android:tintMode="multiply" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="24dp">
+
+        <TextView
+            android:id="@+id/splashTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/app_name"
+            android:textColor="#FFF"
+            android:textSize="32dp"
+            app:fontFamily="@font/gaegu_bold" />
+
+        <TextView
+            android:id="@+id/alarmTimeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:textColor="#FFF"
+            android:textSize="28dp"
+            app:fontFamily="@font/numans_regular"
+            tools:text="10:09 AM" />
+
+        <TextView
+            android:id="@+id/questionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:fitsSystemWindows="true"
+            android:text="Which the biggest country in the world, geographically?"
+            android:textColor="#FFF"
+            android:textSize="32dp"
+            app:fontFamily="@font/chivo_bold"
+            app:layout_collapseMode="none" />
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/firstAnswerTextView"
+                    style="@style/AnswersTextViewStyle"
+                    android:layout_column="1"
+                    android:text="Peter" />
+
+                <TextView
+                    android:id="@+id/secondAnswerTextView"
+                    style="@style/AnswersTextViewStyle"
+                    android:layout_column="2"
+                    android:text="Adolf" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/thirdAnswerTextView"
+                    style="@style/AnswersTextViewStyle"
+                    android:layout_column="1"
+                    android:text="Adam" />
+
+                <TextView
+                    android:id="@+id/fourthAnswerTextView"
+                    style="@style/AnswersTextViewStyle"
+                    android:layout_column="2"
+                    android:text="John" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+</RelativeLayout>

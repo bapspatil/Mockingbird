@@ -30,6 +30,7 @@ import bapspatil.mockingbird.R;
 import bapspatil.mockingbird.adapter.AlarmsRecyclerViewAdapter;
 import bapspatil.mockingbird.model.AlarmItem;
 import bapspatil.mockingbird.util.Constants;
+import bapspatil.mockingbird.util.QuestionsManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
@@ -65,6 +66,8 @@ public class AlarmsActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
         random = new Random();
         setupAppBar();
+
+        QuestionsManager.addQuestionsToDatabase(realm);
 
         alarmsRealmResults = realm.where(AlarmItem.class).findAll();
         AlarmsRecyclerViewAdapter alarmsAdapter = new AlarmsRecyclerViewAdapter(alarmsRealmResults, true, true, alarmItem -> {
@@ -151,6 +154,7 @@ public class AlarmsActivity extends AppCompatActivity {
         // Setting the alarm with the AlarmManager API
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         Intent intentToQuestionsActivity = new Intent(getApplicationContext(), QuestionsActivity.class);
+        intentToQuestionsActivity.putExtra(Constants.ALARMITEM_KEY, alarmItem);
         PendingIntent alarmPendingIntent = PendingIntent.getActivity(getApplicationContext(), alarmItem.getRequestCode(), intentToQuestionsActivity, PendingIntent.FLAG_UPDATE_CURRENT);
         if (alarmManager != null) {
             alarmManager.set(AlarmManager.RTC_WAKEUP, timeSet.getTimeInMillis(), alarmPendingIntent);
@@ -197,6 +201,7 @@ public class AlarmsActivity extends AppCompatActivity {
         // Cancel the alarm with AlarmManager API
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         Intent intentToQuestionsActivity = new Intent(getApplicationContext(), QuestionsActivity.class);
+        intentToQuestionsActivity.putExtra(Constants.ALARMITEM_KEY, alarmItem);
         PendingIntent canceledAlarmPendingIntent = PendingIntent.getActivity(getApplicationContext(), alarmItem.getRequestCode(), intentToQuestionsActivity, PendingIntent.FLAG_UPDATE_CURRENT);
         if (alarmManager != null) {
             alarmManager.cancel(canceledAlarmPendingIntent);
