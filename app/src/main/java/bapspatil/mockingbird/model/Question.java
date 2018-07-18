@@ -86,6 +86,18 @@ public class Question extends RealmObject implements Parcelable {
         this.correctAnswer = correctAnswer;
     }
 
+    @Override
+    public String toString() {
+        return "Question{" +
+                "questionID=" + questionID +
+                ", questionText='" + questionText + '\'' +
+                ", firstAnswer='" + firstAnswer + '\'' +
+                ", secondAnswer='" + secondAnswer + '\'' +
+                ", thirdAnswer='" + thirdAnswer + '\'' +
+                ", fourthAnswer='" + fourthAnswer + '\'' +
+                ", correctAnswer='" + correctAnswer + '\'' +
+                '}';
+    }
 
     @Override
     public int describeContents() {

@@ -39,6 +39,13 @@ public class AlarmItem extends RealmObject implements Parcelable {
         this.timeSet = timeSet;
     }
 
+    @Override
+    public String toString() {
+        return "AlarmItem{" +
+                "requestCode=" + requestCode +
+                ", timeSet=" + timeSet +
+                '}';
+    }
 
     @Override
     public int describeContents() {

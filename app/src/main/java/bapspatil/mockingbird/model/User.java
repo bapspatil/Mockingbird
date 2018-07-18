@@ -11,23 +11,13 @@ import android.os.Parcelable;
  */
 
 public class User extends RealmObject implements Parcelable {
-    @PrimaryKey private int userID;
-    private String name;
+    @PrimaryKey private String name;
 
     public User() {
     }
 
-    public User(int userID, String name) {
-        this.userID = userID;
+    public User(String name) {
         this.name = name;
-    }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
     }
 
     public String getName() {
@@ -38,6 +28,12 @@ public class User extends RealmObject implements Parcelable {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 
     @Override
     public int describeContents() {
@@ -46,12 +42,10 @@ public class User extends RealmObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.userID);
         dest.writeString(this.name);
     }
 
     protected User(Parcel in) {
-        this.userID = in.readInt();
         this.name = in.readString();
     }
 
