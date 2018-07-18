@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="bapspatil.mockingbird">
+    
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".App"
@@ -12,9 +14,7 @@
         <activity
             android:name=".ui.AlarmsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Alarms">
-
-        </activity>
+            android:theme="@style/AppTheme.Alarms"></activity>
         <activity
             android:name=".ui.SplashActivity"
             android:noHistory="true"
@@ -25,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.QuestionsActivity"
+            android:screenOrientation="portrait"></activity>
+        <receiver android:name=".receiver.MockingbirdReceiver">
+
+        </receiver>
     </application>
 
 </manifest>

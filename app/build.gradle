@@ -45,6 +45,7 @@ dependencies {
     implementation "com.android.support:design:$sup"
 
     // App dependencies
+    implementation "io.realm:android-adapters:2.1.1"
     implementation "com.github.bumptech.glide:glide:4.7.1"
     annotationProcessor "com.github.bumptech.glide:compiler:4.7.1"
     implementation "org.aviran.cookiebar2:cookiebar2:1.0.9"

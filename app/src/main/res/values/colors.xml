@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#004484</color>
     <color name="colorAccent">#FDB833</color>
     <color name="backgroundColor">#151B1E</color>
+    <color name="darkGoldenrod">#B1740F</color>
+    <color name="red">#FF0000</color>
 </resources>
