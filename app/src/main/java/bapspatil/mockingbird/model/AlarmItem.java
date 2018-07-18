@@ -12,7 +12,7 @@ import io.realm.annotations.Required;
  */
 
 public class AlarmItem extends RealmObject implements Parcelable {
-    @PrimaryKey @Required private int requestCode;
+    @PrimaryKey private int requestCode;
     private long timeSet;
 
     public AlarmItem() {

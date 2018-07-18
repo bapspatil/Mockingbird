@@ -12,6 +12,11 @@
         <activity
             android:name=".ui.AlarmsActivity"
             android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".ui.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
