@@ -111,7 +111,6 @@ public class QuestionsActivity extends AppCompatActivity {
                     .setTitle("Wrong answer!")
                     .setMessage("Just to make sure you're awake, here's another question.")
                     .setDuration(2000)
-                    .setLayoutGravity(Gravity.BOTTOM)
                     .setBackgroundColor(R.color.red)
                     .show();
         }
@@ -170,7 +169,6 @@ public class QuestionsActivity extends AppCompatActivity {
                 .setTitle("Please answer the question.")
                 .setMessage("Until then, the bird will keep on chirping! :P")
                 .setDuration(2000)
-                .setLayoutGravity(Gravity.BOTTOM)
                 .setBackgroundColor(R.color.darkGoldenrod)
                 .show();
     }
