@@ -14,27 +14,29 @@
         <activity
             android:name=".ui.AlarmsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Alarms"></activity>
+            android:theme="@style/AppTheme.Transparency"></activity>
         <activity
             android:name=".ui.SplashActivity"
             android:noHistory="true"
             android:screenOrientation="portrait">
-
-        </activity>
-        <activity
-            android:name=".ui.QuestionsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Alarms">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.QuestionsActivity"
+            android:screenOrientation="portrait"
+            android:noHistory="true">
 
-        <receiver android:name=".receiver.MockingbirdReceiver">
+        </activity>
+        <activity
+            android:name=".ui.DismissedActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transparency">
 
-        </receiver>
+        </activity>
     </application>
 
 </manifest>

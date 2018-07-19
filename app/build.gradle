@@ -46,12 +46,8 @@ dependencies {
 
     // App dependencies
     implementation "io.realm:android-adapters:2.1.1"
-    implementation "com.github.bumptech.glide:glide:4.7.1"
-    annotationProcessor "com.github.bumptech.glide:compiler:4.7.1"
     implementation "org.aviran.cookiebar2:cookiebar2:1.0.9"
     implementation "jp.wasabeef:recyclerview-animators:2.3.0"
     implementation "com.jakewharton:butterknife:8.8.1"
     annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
-    implementation "me.grantland:autofittextview:0.2.1"
-
 }

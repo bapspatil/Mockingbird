@@ -4,15 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".ui.QuestionsActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:fitsSystemWindows="true"
         android:scaleType="centerCrop"
         android:src="@drawable/questions_bg"
         android:tint="@color/colorPrimary"
@@ -22,6 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:alpha="0"
+        android:id="@+id/containerLayout"
         android:paddingTop="24dp">
 
         <TextView
@@ -52,9 +51,8 @@
             android:layout_gravity="center"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:fitsSystemWindows="true"
-            android:text="Which the biggest country in the world, geographically?"
+            android:layout_marginTop="32dp"
+            android:text="Which is the biggest country in the world, geographically?"
             android:textColor="#FFF"
             android:textSize="32dp"
             app:fontFamily="@font/chivo_bold"
@@ -75,14 +73,12 @@
                 <TextView
                     android:id="@+id/firstAnswerTextView"
                     style="@style/AnswersTextViewStyle"
-                    android:layout_column="1"
-                    android:text="Peter" />
+                    android:text="India" />
 
                 <TextView
                     android:id="@+id/secondAnswerTextView"
                     style="@style/AnswersTextViewStyle"
-                    android:layout_column="2"
-                    android:text="Adolf" />
+                    android:text="USA" />
 
             </TableRow>
 
@@ -94,14 +90,12 @@
                 <TextView
                     android:id="@+id/thirdAnswerTextView"
                     style="@style/AnswersTextViewStyle"
-                    android:layout_column="1"
-                    android:text="Adam" />
+                    android:text="China" />
 
                 <TextView
                     android:id="@+id/fourthAnswerTextView"
                     style="@style/AnswersTextViewStyle"
-                    android:layout_column="2"
-                    android:text="John" />
+                    android:text="Ukraine" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

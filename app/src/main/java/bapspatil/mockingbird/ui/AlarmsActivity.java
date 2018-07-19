@@ -24,11 +24,13 @@ import android.widget.TextView;
 import org.aviran.cookiebar2.CookieBar;
 
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Random;
 
 import bapspatil.mockingbird.R;
 import bapspatil.mockingbird.adapter.AlarmsRecyclerViewAdapter;
 import bapspatil.mockingbird.model.AlarmItem;
+import bapspatil.mockingbird.model.User;
 import bapspatil.mockingbird.util.Constants;
 import bapspatil.mockingbird.util.QuestionsManager;
 import butterknife.BindView;
@@ -64,31 +66,37 @@ public class AlarmsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_alarms);
         ButterKnife.bind(this);
         realm = Realm.getDefaultInstance();
+
         random = new Random();
         setupAppBar();
 
         QuestionsManager.addQuestionsToDatabase(realm);
 
-        alarmsRealmResults = realm.where(AlarmItem.class).findAll();
-        AlarmsRecyclerViewAdapter alarmsAdapter = new AlarmsRecyclerViewAdapter(alarmsRealmResults, true, true, alarmItem -> {
-            deleteAlarm(alarmItem);
-        });
+        if (Objects.requireNonNull(realm.where(User.class).findFirst()).isQuestionAnswered()) {
+            alarmsRealmResults = realm.where(AlarmItem.class).findAll();
+            AlarmsRecyclerViewAdapter alarmsAdapter = new AlarmsRecyclerViewAdapter(alarmsRealmResults, true, true, alarmItem -> {
+                deleteAlarm(alarmItem);
+            });
 
-        alarmsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        alarmsRecyclerView.setAdapter(alarmsAdapter);
-        alarmsRecyclerView.setItemAnimator(new LandingAnimator());
+            alarmsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            alarmsRecyclerView.setAdapter(alarmsAdapter);
+            alarmsRecyclerView.setItemAnimator(new LandingAnimator());
 
-        addAlarmFab.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            mHourOfDay = calendar.get(Calendar.HOUR_OF_DAY) + 1;
-            mMinute = calendar.get(Calendar.MINUTE);
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
-                addAlarmItem(hourOfDay, minute);
-                setUiBasedOnAlarms(alarmsRealmResults);
-            }, mHourOfDay, mMinute, false);
-            timePickerDialog.show();
-        });
-        setUiBasedOnAlarms(alarmsRealmResults);
+            addAlarmFab.setOnClickListener(v -> {
+                Calendar calendar = Calendar.getInstance();
+                mHourOfDay = calendar.get(Calendar.HOUR_OF_DAY) + 1;
+                mMinute = calendar.get(Calendar.MINUTE);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
+                    addAlarmItem(hourOfDay, minute);
+                    setUiBasedOnAlarms(alarmsRealmResults);
+                }, mHourOfDay, mMinute, false);
+                timePickerDialog.show();
+            });
+            setUiBasedOnAlarms(alarmsRealmResults);
+        } else {
+            Intent intent = new Intent(this, QuestionsActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void setUiBasedOnAlarms(RealmResults alarmsRealmResults) {

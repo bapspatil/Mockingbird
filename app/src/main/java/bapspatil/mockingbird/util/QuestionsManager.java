@@ -5,8 +5,12 @@ package bapspatil.mockingbird.util;
 
 import android.util.Log;
 
+import java.util.Random;
+
 import bapspatil.mockingbird.model.Question;
 import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmResults;
 
 public class QuestionsManager {
     public static String[] questions = {
@@ -83,5 +87,11 @@ public class QuestionsManager {
                 Log.d("QUESTION_ADDED_TO_DB", question.toString());
             }
         });
+    }
+
+    public static Question getRandomQuestion(Realm realm) {
+        Random random = new Random();
+        RealmResults<Question> questionRealmResults = realm.where(Question.class).findAll();
+        return questionRealmResults.get(random.nextInt(questionRealmResults.size()));
     }
 }

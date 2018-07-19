@@ -1,6 +1,7 @@
 package bapspatil.mockingbird.model;
 
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 import android.os.Parcel;
@@ -12,12 +13,14 @@ import android.os.Parcelable;
 
 public class User extends RealmObject implements Parcelable {
     @PrimaryKey private String name;
+    private boolean isQuestionAnswered;
 
     public User() {
     }
 
     public User(String name) {
         this.name = name;
+        this.isQuestionAnswered = true;
     }
 
     public String getName() {
@@ -28,12 +31,22 @@ public class User extends RealmObject implements Parcelable {
         this.name = name;
     }
 
+    public boolean isQuestionAnswered() {
+        return isQuestionAnswered;
+    }
+
+    public void setQuestionAnswered(boolean questionAnswered) {
+        isQuestionAnswered = questionAnswered;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
+                ", isQuestionAnswered=" + isQuestionAnswered +
                 '}';
     }
+
 
     @Override
     public int describeContents() {
@@ -43,10 +56,12 @@ public class User extends RealmObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
+        dest.writeByte(this.isQuestionAnswered ? (byte) 1 : (byte) 0);
     }
 
     protected User(Parcel in) {
         this.name = in.readString();
+        this.isQuestionAnswered = in.readByte() != 0;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
