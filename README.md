@@ -18,6 +18,7 @@ An Android alarm app that asks questions till you wake up.
 * [ButterKnife](https://github.com/JakeWharton/butterknife/)
 <br/>
 ## Developed By
+
 Bapusaheb Patil
 
 <img src="https://github.com/bapspatil.png" width="20%">
