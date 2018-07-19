@@ -3,6 +3,10 @@ An Android alarm app that asks questions till you wake up.
 
 **Warning**: This app might annoy a few lazy users.
 
+Presentation to this app can be found here:
+
+[Mockingbird on Google Slides](https://bit.ly/baps-mockingbird-ppt)
+
 ## Screenshots
 <img src="./design/screen0.png" width="35%">&ensp;<img src="./design/screen1.png" width="35%">
 
