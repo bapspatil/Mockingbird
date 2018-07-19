@@ -1,22 +1,21 @@
 # <img src="./design/app_icon.png" width="3%">&nbsp;Mockingbird
 An Android alarm app that asks questions till you wake up.
-<br/><br/>
+
 **Warning**: This app might annoy a few lazy users.
-<br/><br/>
+
 ## Screenshots
 <img src="./design/screen0.png" width="35%">&ensp;<img src="./design/screen1.png" width="35%">
-<br/>
+
 <img src="./design/screen2.png" width="35%">&ensp;<img src="./design/screen3.png" width="35%">
-<br/>
+
 <img src="./design/screen4.png" width="35%">&ensp;<img src="./design/screen5.png" width="35%">
-<br/>
+
 ## Libraries & Frameworks Used
 * [Android Support Library](https://developer.android.com/topic/libraries/support-library/)
 * [Realm Database](https://realm.io/)
 * [CookieBar2](https://github.com/AviranAbady/CookieBar2)
 * [recyclerview-animators](https://github.com/wasabeef/recyclerview-animators/)
 * [ButterKnife](https://github.com/JakeWharton/butterknife/)
-<br/>
 
 ## Developed By
 
@@ -25,7 +24,7 @@ Bapusaheb Patil
 <img src="https://github.com/bapspatil.png" width="20%">
 
 https://bapspatil.com
-<br/>
+
 ## License
 
     Copyright 2018 Bapusaheb Patil
