@@ -1,18 +1,29 @@
 package bapspatil.mockingbird.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.Ignore;
-import io.realm.annotations.PrimaryKey;
-
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /*
  ** Created by Bapusaheb Patil {@link https://bapspatil.com}
  */
 
 public class User extends RealmObject implements Parcelable {
-    @PrimaryKey private String name;
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+    @PrimaryKey
+    private String name;
     private boolean isQuestionAnswered;
 
     public User() {
@@ -21,6 +32,11 @@ public class User extends RealmObject implements Parcelable {
     public User(String name) {
         this.name = name;
         this.isQuestionAnswered = true;
+    }
+
+    protected User(Parcel in) {
+        this.name = in.readString();
+        this.isQuestionAnswered = in.readByte() != 0;
     }
 
     public String getName() {
@@ -47,7 +63,6 @@ public class User extends RealmObject implements Parcelable {
                 '}';
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -58,21 +73,4 @@ public class User extends RealmObject implements Parcelable {
         dest.writeString(this.name);
         dest.writeByte(this.isQuestionAnswered ? (byte) 1 : (byte) 0);
     }
-
-    protected User(Parcel in) {
-        this.name = in.readString();
-        this.isQuestionAnswered = in.readByte() != 0;
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel source) {
-            return new User(source);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 }

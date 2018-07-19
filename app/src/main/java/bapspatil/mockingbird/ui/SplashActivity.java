@@ -1,17 +1,13 @@
 package bapspatil.mockingbird.ui;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,12 +24,18 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class SplashActivity extends AppCompatActivity {
-    @BindView(R.id.splashImageView) ImageView splashImageView;
-    @BindView(R.id.splashTextView) TextView splashTextView;
-    @BindView(R.id.userNameTil) TextInputLayout userNameTil;
-    @BindView(R.id.userNameEt) TextInputEditText userNameEt;
-    @BindView(R.id.greetTextView) TextView greetTextView;
-    @BindView(R.id.nextFab) FloatingActionButton nextFab;
+    @BindView(R.id.splashImageView)
+    ImageView splashImageView;
+    @BindView(R.id.splashTextView)
+    TextView splashTextView;
+    @BindView(R.id.userNameTil)
+    TextInputLayout userNameTil;
+    @BindView(R.id.userNameEt)
+    TextInputEditText userNameEt;
+    @BindView(R.id.greetTextView)
+    TextView greetTextView;
+    @BindView(R.id.nextFab)
+    FloatingActionButton nextFab;
 
     private Realm realm;
 
@@ -47,7 +49,7 @@ public class SplashActivity extends AppCompatActivity {
         int SPLASH_TIME_OUT = 1000;
 
         RealmResults<User> usersReamResults = realm.where(User.class).findAll();
-        if(usersReamResults.isEmpty()) {
+        if (usersReamResults.isEmpty()) {
             splashImageView.animate().translationYBy(350).setDuration(2000).withEndAction(() -> {
                 animateUserNameInput();
                 nextFab.setOnClickListener(v -> validateUserName());
@@ -67,9 +69,9 @@ public class SplashActivity extends AppCompatActivity {
 
     private void validateUserName() {
         String firstName = userNameEt.getText().toString().trim();
-        if(firstName.isEmpty() && firstName.equals("")) {
+        if (firstName.isEmpty() && firstName.equals("")) {
             userNameTil.setError("Umm...that's not a valid name.");
-        } else if(firstName.length() > 15) {
+        } else if (firstName.length() > 15) {
             userNameTil.setError("That's too long. Can you just share your first name?");
         } else {
             userNameTil.setError(null);

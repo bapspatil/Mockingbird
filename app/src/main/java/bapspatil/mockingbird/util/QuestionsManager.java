@@ -9,7 +9,6 @@ import java.util.Random;
 
 import bapspatil.mockingbird.model.Question;
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class QuestionsManager {

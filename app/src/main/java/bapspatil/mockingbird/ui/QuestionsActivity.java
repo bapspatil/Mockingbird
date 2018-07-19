@@ -7,7 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,12 +16,9 @@ import android.widget.TextView;
 
 import org.aviran.cookiebar2.CookieBar;
 
-import java.util.Objects;
-
 import bapspatil.mockingbird.R;
 import bapspatil.mockingbird.model.AlarmItem;
 import bapspatil.mockingbird.model.Question;
-import bapspatil.mockingbird.model.User;
 import bapspatil.mockingbird.util.Constants;
 import bapspatil.mockingbird.util.QuestionsManager;
 import butterknife.BindView;
@@ -55,18 +52,24 @@ public class QuestionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
         ButterKnife.bind(this);
+        realm = Realm.getDefaultInstance();
         isCorrectAnswerSelected = false;
         // Hide system UI and block user touch
         hideSystemUI();
+        mediaPlayer = MediaPlayer.create(this, R.raw.mockingbird);
 
-        realm = Realm.getDefaultInstance();
-        alarmItem = getIntent().getParcelableExtra(Constants.ALARMITEM_KEY);
-
-        startRinging();
-
+        int alarmItemRequestCode = getIntent().getIntExtra(Constants.ALARMITEM_REQUEST_CODE_KEY, 0);
+        alarmItem = realm.where(AlarmItem.class).equalTo("requestCode", alarmItemRequestCode).findFirst();
         if (alarmItem != null) {
+            Log.d("ALARMITEM_DELETED", alarmItem.toString());
             alarmTimeTextView.setText(alarmItem.getFriendlyTimeSet());
+            realm.executeTransaction(realm1 -> alarmItem.deleteFromRealm());
         }
+
+        if (!isCorrectAnswerSelected)
+            startRinging();
+        else
+            mediaPlayer.stop();
 
         setRandomQuestionToView();
         setClickListeners();
@@ -93,19 +96,16 @@ public class QuestionsActivity extends AppCompatActivity {
     private void checkIfAnswerIsCorrect(String answerGiven) {
         if (answerGiven.equals(question.getCorrectAnswer())) {
             isCorrectAnswerSelected = true;
-            realm.executeTransaction(realm1 -> Objects.requireNonNull(realm1.where(User.class).findFirst()).setQuestionAnswered(true));
             // Stop ringing
             mediaPlayer.stop();
-            // Delete alarm from Realm database
-            if (alarmItem != null)
-                alarmItem.deleteFromRealm();
             // Start DismissedActivity
             Intent intent = new Intent(this, DismissedActivity.class);
             Bundle animationBundle = ActivityOptionsCompat.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out).toBundle();
             startActivity(intent, animationBundle);
+            finish();
         } else {
             isCorrectAnswerSelected = false;
-            realm.executeTransaction(realm1 -> Objects.requireNonNull(realm1.where(User.class).findFirst()).setQuestionAnswered(true));
+            startRinging();
             setRandomQuestionToView();
             CookieBar.build(this)
                     .setTitle("Wrong answer!")
@@ -133,9 +133,14 @@ public class QuestionsActivity extends AppCompatActivity {
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 20, 0);
         }
         // Playing the alarm with the MediaPlayer
-        mediaPlayer = MediaPlayer.create(this, R.raw.mockingbird);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideSystemUI();
     }
 
     @Override
@@ -143,6 +148,8 @@ public class QuestionsActivity extends AppCompatActivity {
         super.onDestroy();
         if (!isCorrectAnswerSelected)
             startRinging();
+        else
+            mediaPlayer.stop();
     }
 
     @Override

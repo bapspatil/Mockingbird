@@ -3,7 +3,6 @@ package bapspatil.mockingbird.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -12,7 +11,19 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class Question extends RealmObject implements Parcelable {
-    @PrimaryKey private int questionID;
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel source) {
+            return new Question(source);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
+    @PrimaryKey
+    private int questionID;
     private String questionText;
     private String firstAnswer, secondAnswer, thirdAnswer, fourthAnswer;
     private String correctAnswer;
@@ -28,6 +39,16 @@ public class Question extends RealmObject implements Parcelable {
         this.thirdAnswer = thirdAnswer;
         this.fourthAnswer = fourthAnswer;
         this.correctAnswer = correctAnswer;
+    }
+
+    protected Question(Parcel in) {
+        this.questionID = in.readInt();
+        this.questionText = in.readString();
+        this.firstAnswer = in.readString();
+        this.secondAnswer = in.readString();
+        this.thirdAnswer = in.readString();
+        this.fourthAnswer = in.readString();
+        this.correctAnswer = in.readString();
     }
 
     public int getQuestionID() {
@@ -114,26 +135,4 @@ public class Question extends RealmObject implements Parcelable {
         dest.writeString(this.fourthAnswer);
         dest.writeString(this.correctAnswer);
     }
-
-    protected Question(Parcel in) {
-        this.questionID = in.readInt();
-        this.questionText = in.readString();
-        this.firstAnswer = in.readString();
-        this.secondAnswer = in.readString();
-        this.thirdAnswer = in.readString();
-        this.fourthAnswer = in.readString();
-        this.correctAnswer = in.readString();
-    }
-
-    public static final Creator<Question> CREATOR = new Creator<Question>() {
-        @Override
-        public Question createFromParcel(Parcel source) {
-            return new Question(source);
-        }
-
-        @Override
-        public Question[] newArray(int size) {
-            return new Question[size];
-        }
-    };
 }

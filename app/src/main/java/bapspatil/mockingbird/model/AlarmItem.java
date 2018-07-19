@@ -5,14 +5,25 @@ import android.os.Parcelable;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.Required;
 
 /*
  ** Created by Bapusaheb Patil {@link https://bapspatil.com}
  */
 
 public class AlarmItem extends RealmObject implements Parcelable {
-    @PrimaryKey private int requestCode;
+    public static final Creator<AlarmItem> CREATOR = new Creator<AlarmItem>() {
+        @Override
+        public AlarmItem createFromParcel(Parcel source) {
+            return new AlarmItem(source);
+        }
+
+        @Override
+        public AlarmItem[] newArray(int size) {
+            return new AlarmItem[size];
+        }
+    };
+    @PrimaryKey
+    private int requestCode;
     private long timeSet;
     private String friendlyTimeSet;
 
@@ -23,6 +34,12 @@ public class AlarmItem extends RealmObject implements Parcelable {
         this.requestCode = requestCode;
         this.timeSet = timeSet;
         this.friendlyTimeSet = friendlyTimeSet;
+    }
+
+    protected AlarmItem(Parcel in) {
+        this.requestCode = in.readInt();
+        this.timeSet = in.readLong();
+        this.friendlyTimeSet = in.readString();
     }
 
     public int getRequestCode() {
@@ -58,7 +75,6 @@ public class AlarmItem extends RealmObject implements Parcelable {
                 '}';
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -70,22 +86,4 @@ public class AlarmItem extends RealmObject implements Parcelable {
         dest.writeLong(this.timeSet);
         dest.writeString(this.friendlyTimeSet);
     }
-
-    protected AlarmItem(Parcel in) {
-        this.requestCode = in.readInt();
-        this.timeSet = in.readLong();
-        this.friendlyTimeSet = in.readString();
-    }
-
-    public static final Creator<AlarmItem> CREATOR = new Creator<AlarmItem>() {
-        @Override
-        public AlarmItem createFromParcel(Parcel source) {
-            return new AlarmItem(source);
-        }
-
-        @Override
-        public AlarmItem[] newArray(int size) {
-            return new AlarmItem[size];
-        }
-    };
 }

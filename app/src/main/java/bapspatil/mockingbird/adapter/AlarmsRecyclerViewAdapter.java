@@ -42,17 +42,19 @@ public class AlarmsRecyclerViewAdapter extends io.realm.RealmRecyclerViewAdapter
         }
     }
 
+    public interface AlarmDeletedInterface {
+        void alarmDeleted(AlarmItem alarmItem);
+    }
+
     public class AlarmViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.timeTextView) TextView timeTextView;
-        @BindView(R.id.deleteImageView) ImageView deleteImageView;
+        @BindView(R.id.timeTextView)
+        TextView timeTextView;
+        @BindView(R.id.deleteImageView)
+        ImageView deleteImageView;
 
         public AlarmViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-    }
-
-    public interface AlarmDeletedInterface {
-        void alarmDeleted(AlarmItem alarmItem);
     }
 }
