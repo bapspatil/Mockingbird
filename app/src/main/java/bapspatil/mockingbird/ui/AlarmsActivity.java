@@ -222,4 +222,10 @@ public class AlarmsActivity extends AppCompatActivity {
         // Check if there are zero alarms, show placeholder if yes
         setUiBasedOnAlarms(alarmsRealmResults);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUiBasedOnAlarms(alarmsRealmResults);
+    }
 }
