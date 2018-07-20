@@ -9,7 +9,9 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +43,7 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_splash);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
@@ -55,6 +58,13 @@ public class SplashActivity extends AppCompatActivity {
                 nextFab.setOnClickListener(v -> validateUserName());
             }).start();
             splashTextView.animate().alpha(0).setStartDelay(500).setDuration(1000).start();
+            userNameEt.setImeActionLabel("Done", KeyEvent.KEYCODE_ENTER);
+            userNameEt.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            userNameEt.setOnEditorActionListener((v, actionId, event) -> {
+                if (actionId == EditorInfo.IME_ACTION_DONE)
+                    nextFab.performClick();
+                return true;
+            });
         } else {
             new Handler().postDelayed(() -> {
                 Intent i = new Intent(SplashActivity.this, AlarmsActivity.class);
