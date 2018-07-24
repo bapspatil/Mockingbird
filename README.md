@@ -9,12 +9,10 @@ Presentation to this app can be found here:
 
 ## Screenshots
 <img src="./design/screen0.png" width="35%">&ensp;<img src="./design/screen1.png" width="35%">
-
 <img src="./design/screen2.png" width="35%">&ensp;<img src="./design/screen3.png" width="35%">
-
 <img src="./design/screen4.png" width="35%">&ensp;<img src="./design/screen5.png" width="35%">
 
-## Libraries & Frameworks Used
+## Libraries Used
 * [Android Support Library](https://developer.android.com/topic/libraries/support-library/)
 * [Realm Database](https://realm.io/)
 * [CookieBar2](https://github.com/AviranAbady/CookieBar2)
